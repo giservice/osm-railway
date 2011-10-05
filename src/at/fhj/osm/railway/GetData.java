@@ -49,45 +49,41 @@ public class GetData
 		             NamedNodeMap nnm= nodeChild.getAttributes();
 		            // System.out.println(nnm.toString() );
 		             for( int k=0; k<nnm.getLength(); k++ )
-				        {
-		            	 	Node n=nnm.item(k);
-		            	 	if(n.getNodeName().equals("k")&& n.getNodeValue().equals("name")){
-		            	 	//	System.out.println("NAME:");
-		            	 		bName = true;
-		            	 		
-		            	 	}
-		            	 	
-		            	 	if(n.getNodeName().equals("v")&& bName){
-		            	 		bName = false;
-		            	 	//	System.out.println("VALUE:"+n.toString());
-		            	 		st=n.getNodeValue();
-		            	 		//System.out.println("NODE:"+n.toString() );
-		            	 		
-		            	 	}
-		            	 		if(n.getNodeName().equals("k")&& n.getNodeValue().equals("railway")){
-		            	 	//	System.out.println(n.toString() );
-		            	 		step++;
-		            	 		if(step>1){
-		            	 			System.out.println("STATION:"+st );
-		            	 		}
-		            	 	
-		            	 	
-		            	 	}
-		            	 	
-		            	 	if(n.getNodeName().equals("v")&& n.getNodeValue().equals("station")){
-		            	 	//	System.out.println(n.toString() );
-		            	 		step++;
-		            	 		if(step>1){
-		            	 			System.out.println("STATION:"+st );
-		            	 		}
-		            	 		
-		            	 	}
-		            	 
-		            	 	
-		            	 	
-				        }
-		            
-		            
+			        {
+	            	 	Node n=nnm.item(k);
+	            	 	if(n.getNodeName().equals("k")&& n.getNodeValue().equals("name")){
+	            	 	//	System.out.println("NAME:");
+	            	 		bName = true;
+	            	 		
+	            	 	}
+	            	 	
+	            	 	if(n.getNodeName().equals("v")&& bName){
+	            	 		bName = false;
+	            	 	//	System.out.println("VALUE:"+n.toString());
+	            	 		st=n.getNodeValue();
+	            	 		//System.out.println("NODE:"+n.toString() );
+	            	 		
+	            	 	}
+	            	 		if(n.getNodeName().equals("k")&& n.getNodeValue().equals("railway")){
+	            	 	//	System.out.println(n.toString() );
+	            	 		step++;
+	            	 		if(step>1){
+	            	 			System.out.println("STATION:"+st );
+	            	 		}
+	            	 	
+	            	 	
+	            	 	}
+	            	 	
+	            	 	if(n.getNodeName().equals("v")&& n.getNodeValue().equals("station")){
+	            	 	//	System.out.println(n.toString() );
+	            	 		step++;
+	            	 		if(step>1){
+	            	 			System.out.println("STATION:"+st );
+	            	 		}
+	            	 		
+	            	 	}   
+	            	 	
+			        }
 		          }
 		        }
 		      }
@@ -96,25 +92,7 @@ public class GetData
 		   
 	   }
 
- /*     XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-      XMLStreamReader stax = inputFactory.createXMLStreamReader( new StreamSource( new File( "res/proleb-kapfenberg.osm" ) ) );
-      while( stax.hasNext() ) {
-         stax.next();
-		 if(stax.hasName()){
-			System.out.println(""+stax.getName());
-			if(stax.getName().equals("node")){
-				stax.ha
-			if( stax.getAttributeCount() > 0 ) {
-            for( int i = 0; i < stax.getAttributeCount(); i++ ) {				
-               System.out.print( " " + stax.getAttributeLocalName(i) + "=\""
-                                     + stax.getAttributeValue(i) + "\"" );
-            }
-         }
-			
-			}
-		 }
-      
-      } */
+ 
       
    }
 }
