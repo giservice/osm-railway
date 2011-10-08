@@ -9,6 +9,8 @@ import javax.xml.stream.*;
 
 import org.w3c.dom.*;
 
+import at.fhj.osm.railway.view.MainFrame;
+
 public class GetData
 {
 
@@ -17,12 +19,14 @@ public class GetData
    public static void main( String[] args ) throws XMLStreamException
    {
 	   startTime = System.currentTimeMillis();
-	   ParseXmlData pxd = new ParseXmlData();
-	 //  pxd.newXml();
+	/*   ParseXmlData pxd = new ParseXmlData();
+	
 	   if(pxd.initDom()){
 		   pxd.getStations();
 		   pxd.newXml();
 	   } 
+	   */
+	   new MainFrame();
       
    }
    public static String getTime(){
