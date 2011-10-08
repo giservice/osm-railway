@@ -1,21 +1,86 @@
 package at.fhj.osm.railway;
 
 import java.io.File;
+import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class ParseXmlData {
 	
-	private Document document;
+	private Document document,newdocument;
     private Node rootNode;
+    private Vector<Node> stations = new Vector<Node>();
 	
 	public ParseXmlData(){
+		
+	}
+	// This method writes a DOM document to a file
+	public static void writeXmlFile(Document doc, String filename) {
+	    try {
+	        // Prepare the DOM document for writing
+	        Source source = new DOMSource(doc);
+
+	        // Prepare the output file
+	        File file = new File(filename);
+	        Result result = new StreamResult(file);
+
+	        // Write the DOM document to the file
+	        Transformer xformer = TransformerFactory.newInstance().newTransformer();
+	        xformer.transform(source, result);
+	    } catch (TransformerConfigurationException e) {
+	    } catch (TransformerException e) {
+	    }
+	}
+
+	public boolean newXml(){
+		try{
+		// ---- Parse XML file ----
+	      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	      // factory.setNamespaceAware( true );
+	      DocumentBuilder builder  = factory.newDocumentBuilder();
+	      newdocument = builder.newDocument();
+	      Element root = newdocument.createElement("mado");
+	        root.setAttribute("osm", "railway");
+	        String text = "\n";
+        	Node linebreak;
+	        //newdocument.createE
+	        
+	     
+	        for(int i=0;i<stations.size();i++){
+	        	Node n = stations.elementAt(i);
+	      
+	        	linebreak = newdocument.createTextNode(text);
+	        	root.appendChild(linebreak);
+	        	
+	        	root.appendChild(newdocument.importNode(n, true));
+	        }
+	        
+	        newdocument.appendChild(root);
+	        writeXmlFile(newdocument, "output/stations.xml");
+	        
+	        
+	  
+	      return true;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+		
 		
 	}
 	public boolean initDom(){
@@ -25,6 +90,7 @@ public class ParseXmlData {
 	      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	      // factory.setNamespaceAware( true );
 	      DocumentBuilder builder  = factory.newDocumentBuilder();
+	      
 	      document = builder.parse( new File( "res/proleb-kapfenberg.osm" ) );
 	      rootNode = document.getDocumentElement();
 	      return true;
@@ -81,7 +147,9 @@ public class ParseXmlData {
           	 	//	System.out.println(n.toString() );
           	 		step++;
           	 		if(step>1){
-          	 			System.out.println("STATION:"+st );
+          	 			System.out.println(GetData.getTime()+":STATION:"+st );
+          	 			//stations.add(nodeChild.cloneNode(false));
+          	 			stations.add(nodeMain);
           	 		}
           	 	
           	 	
@@ -91,7 +159,11 @@ public class ParseXmlData {
           	 	//	System.out.println(n.toString() );
           	 		step++;
           	 		if(step>1){
-          	 			System.out.println("STATION:"+st );
+          	 			System.out.println(GetData.getTime()+":STATION:"+st );
+          	 			//stations.add(nodeChild.cloneNode(false));
+          	 			stations.add(nodeMain);
+          	 			
+          	 			
           	 		}
           	 		
           	 	}   

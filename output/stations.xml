@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><mado osm="railway">
+<node changeset="7965376" id="25528028" lat="47.3939017" lon="15.1553276" timestamp="2011-04-25T16:14:00Z" uid="321042" user="species" version="5" visible="true">
+  <tag k="name" v="Niklasdorf"/>
+  <tag k="railway" v="station"/>
+  <tag k="uic_ref" v="8101275"/>
+ </node>
+<node changeset="8792047" id="248072578" lat="47.4138721" lon="15.2794411" timestamp="2011-07-21T19:57:30Z" uid="64910" user="uhu01" version="9" visible="true">
+  <tag k="name" v="Bruck an der Mur"/>
+  <tag k="note" v="bitte zwecks Einheitlichkeit nur die lt. OSM wiki vorgeschlagene Namensbezeichnung verwenden (ohne vorangesetztes 'Bahnhof')."/>
+  <tag k="railway" v="station"/>
+  <tag k="uic_name" v="Bruck a.d. Mur"/>
+  <tag k="uic_ref" v="8100032"/>
+ </node>
+<node changeset="1676539" id="290857575" lat="47.4451179" lon="15.2920883" timestamp="2009-06-29T13:36:08Z" uid="56501" user="Rudolf_H" version="2" visible="true">
+  <tag k="name" v="Kapfenberg"/>
+  <tag k="railway" v="station"/>
+  <tag k="uic_ref" v="8100031"/>
+ </node>
+<node changeset="9459826" id="1453668141" lat="47.4545976" lon="15.3289028" timestamp="2011-10-03T12:40:42Z" uid="499857" user="AlexxieD" version="1" visible="true">
+  <tag k="name" v="Kapfenberg Fachhochschule"/>
+  <tag k="railway" v="station"/>
+ </node></mado>
