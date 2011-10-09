@@ -19,14 +19,15 @@ public class GetData
    public static void main( String[] args ) throws XMLStreamException
    {
 	   startTime = System.currentTimeMillis();
-	/*   ParseXmlData pxd = new ParseXmlData();
+	  ParseXmlData pxd = new ParseXmlData();
 	
 	   if(pxd.initDom()){
-		   pxd.getStations();
+	   		pxd.getRailway();
+		   pxd.getStationsAndNodes();
 		   pxd.newXml();
 	   } 
-	   */
-	   new MainFrame();
+	   
+	  // new MainFrame();
       
    }
    public static String getTime(){

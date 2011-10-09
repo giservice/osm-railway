@@ -24,7 +24,11 @@ public class ParseXmlData {
 	
 	private Document document,newdocument;
     private Node rootNode;
-    private Vector<Node> stations = new Vector<Node>();
+    private Vector<Node> xmlNote = new Vector<Node>();
+    
+    private int lastId,actId;
+    
+    private int nodeId[]=new int[10000];
 	
 	public ParseXmlData(){
 		
@@ -61,8 +65,8 @@ public class ParseXmlData {
 	        //newdocument.createE
 	        
 	     
-	        for(int i=0;i<stations.size();i++){
-	        	Node n = stations.elementAt(i);
+	        for(int i=0;i<xmlNote.size();i++){
+	        	Node n = xmlNote.elementAt(i);
 	      
 	        	linebreak = newdocument.createTextNode(text);
 	        	root.appendChild(linebreak);
@@ -71,7 +75,7 @@ public class ParseXmlData {
 	        }
 	        
 	        newdocument.appendChild(root);
-	        writeXmlFile(newdocument, "output/stations.xml");
+	        writeXmlFile(newdocument, "output/3.xml");
 	        
 	        
 	  
@@ -99,7 +103,99 @@ public class ParseXmlData {
 		}
 		return false;
 	}
-	public void getStations(){
+	public void getRailway(){
+		lastId=0;
+		
+		// ---- Get list of nodes to given tag ----
+	      NodeList ndList = document.getElementsByTagName( "way" );
+	      // System.out.println( "\nNode list at the beginning:" );
+	      // printNodesFromList( ndList );
+	      String st="";
+	      // ---- Loop through the list of main nodes ----
+	      for( int i=0; i<ndList.getLength(); i++ )
+	      {
+	        Node     nodeMain     = ndList.item( i );
+	        Node     nodeChild    = null;
+	        NodeList ndListChilds = nodeMain.getChildNodes();
+	        actId=lastId;
+	        
+	        if( null == ndListChilds )  continue;
+	        // Loop through the list of child nodes
+	        for( int j=0; j<ndListChilds.getLength(); j++ )
+	        {
+	          nodeChild = ndListChilds.item( j );
+	          if( null == nodeChild )  continue;
+	          String sNodeName = nodeChild.getNodeName();
+	          if( null == sNodeName )  continue;
+	          int step=0;
+	         
+	          
+	          boolean bName = false;
+	          if( sNodeName.equals( "nd" ) ){
+	        	  NamedNodeMap nnm= nodeChild.getAttributes();
+		            // System.out.println(nnm.toString() );
+		             for( int k=0; k<nnm.getLength(); k++ )
+			        {
+		          	 	Node n=nnm.item(k);
+		          	 	if(n.getNodeName().equals("ref")){		          	 		
+		          	 		nodeId[actId] =  Integer.parseInt(n.getNodeValue());
+		          	 		actId++;
+		          	 	
+		          	 		
+		          	 	}
+			        }
+	          }
+	          
+	          if( sNodeName.equals( "tag" ) )
+	          {
+	             NamedNodeMap nnm= nodeChild.getAttributes();
+	            // System.out.println(nnm.toString() );
+	             for( int k=0; k<nnm.getLength(); k++ )
+		        {
+          	 	Node n=nnm.item(k);
+          	 
+          	 		if(n.getNodeName().equals("k")&& n.getNodeValue().equals("railway")){
+          	 	//	System.out.println(n.toString() );
+          	 		step++;
+          	 		if(step>1){
+          	 			//System.out.println(GetData.getTime()+":RAIL:"+st );
+          	 			//stations.add(nodeChild.cloneNode(false));
+          	 			lastId=actId;
+          	 			xmlNote.add(nodeMain);
+          	 		}
+          	 	
+          	 	
+          	 	}
+          	 	
+          	 	if(n.getNodeName().equals("v")&& n.getNodeValue().equals("rail")){
+          	 	//	System.out.println(n.toString() );
+          	 		step++;
+          	 		if(step>1){
+          	 		//	System.out.println(GetData.getTime()+":RAIL:"+st );
+          	 			lastId=actId;
+          	 			//stations.add(nodeChild.cloneNode(false));
+          	 			xmlNote.add(nodeMain);
+          	 			
+          	 			
+          	 		}
+          	 		
+          	 	}   
+          	 	
+		        }
+	          }
+	        }
+	       
+	      }
+	      	System.out.println("Ref Nodes:"+lastId);
+	      }
+
+	
+	public void getStationsAndNodes(){
+		
+		
+		
+		
+		
 		// ---- Get list of nodes to given tag ----
 	      NodeList ndList = document.getElementsByTagName( "node" );
 	      // System.out.println( "\nNode list at the beginning:" );
@@ -110,6 +206,27 @@ public class ParseXmlData {
 	      {
 	        Node     nodeMain     = ndList.item( i );
 	        Node     nodeChild    = null;
+	        NamedNodeMap nnmMain= nodeMain.getAttributes();
+            // System.out.println(nnm.toString() );
+             for( int k=0; k<nnmMain.getLength(); k++ )
+	        {
+	      	 	Node n=nnmMain.item(k);
+	      	 	if(n.getNodeName().equals("id")){
+	      	 		int nid=Integer.parseInt(n.getNodeValue());
+	      	 		for(int g=0;g<lastId+1;g++){
+	      	 			if(nodeId[g]==nid){
+	      	 				xmlNote.add(nodeMain);
+	      	 				continue;
+	      	 			}
+	      	 			
+	      	 		}
+	      	 		
+	      	 	}
+	        }
+	        
+	        
+	        
+	        
 	        NodeList ndListChilds = nodeMain.getChildNodes();
 	        
 	        if( null == ndListChilds )  continue;
@@ -149,7 +266,7 @@ public class ParseXmlData {
           	 		if(step>1){
           	 			System.out.println(GetData.getTime()+":STATION:"+st );
           	 			//stations.add(nodeChild.cloneNode(false));
-          	 			stations.add(nodeMain);
+          	 			xmlNote.add(nodeMain);
           	 		}
           	 	
           	 	
@@ -161,7 +278,7 @@ public class ParseXmlData {
           	 		if(step>1){
           	 			System.out.println(GetData.getTime()+":STATION:"+st );
           	 			//stations.add(nodeChild.cloneNode(false));
-          	 			stations.add(nodeMain);
+          	 			xmlNote.add(nodeMain);
           	 			
           	 			
           	 		}

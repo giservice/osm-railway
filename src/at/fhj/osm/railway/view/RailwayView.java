@@ -31,7 +31,7 @@ public class RailwayView extends JPanel{
 	
 	public RailwayView(){
 		this.setPreferredSize(new Dimension(width,heigth));
-		myFont=new Font("Courier", Font.ITALIC|Font.PLAIN, 9);
+		myFont=new Font("Arial", Font.PLAIN, 9);
 		vrws.add(new RailwayStation("Niklasdorf", 473939,151553));
 		vrws.add(new RailwayStation("Bruck/Mur", 474139,152794));
 		vrws.add(new RailwayStation("Kapfenberg", 474451,152921));
