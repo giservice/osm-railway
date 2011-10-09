@@ -20,12 +20,12 @@ public class RailwayView extends JPanel{
 	private static final long serialVersionUID = -384326067871796982L;
 	
 	int points[][] = {{473939,151553},{474139,152794},{474451,152921},{474546,153289}};
-	int offset_lat=473800;
-	int offset_lon=151500;
+	int offset_lat=473700;
+	int offset_lon=151000;
 	int x,y;
 	int x1,x2,y1,y2;
-	int width=960;
-	int heigth = 480;
+	int width=1400;
+	int heigth = 500;
 	
 	Font myFont;
 	
@@ -33,15 +33,11 @@ public class RailwayView extends JPanel{
 	
 	Vector<RailWay> vRailway;
 	
-	public RailwayView(Vector<RailWay> vway){
+	public RailwayView(Vector<RailWay> vway,Vector<RailwayStation> vrws){
 		this.vRailway = vway;
+		this.vrws = vrws;
 		this.setPreferredSize(new Dimension(width,heigth));
-		myFont=new Font("Arial", Font.PLAIN, 9);
-		vrws.add(new RailwayStation("Niklasdorf", 473939,151553));
-		vrws.add(new RailwayStation("Bruck/Mur", 474139,152794));
-		vrws.add(new RailwayStation("Kapfenberg", 474451,152921));
-		vrws.add(new RailwayStation("Kapfenberg FH", 474546,153289));
-		
+		myFont=new Font("Arial", Font.PLAIN, 10);
 		
 	}
 	
@@ -57,8 +53,8 @@ public class RailwayView extends JPanel{
 			  RailwayStation rs=vrws.elementAt(k);
 			  x = (rs.lon-offset_lon)/2;
 			  y = heigth-(rs.lat-offset_lat)/2;
-			  g.drawRect(x, y, 4, 4);
-			  g2d.drawString(rs.name, x-10, y-10);
+			  g.drawRect(x-2, y-2, 4, 4);
+			  g2d.drawString(rs.name, x-10, y-20);
 		  }
 	/*	  
 		  for(int j=0;j<points.length;j++){

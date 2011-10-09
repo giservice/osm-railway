@@ -12,6 +12,7 @@ import org.w3c.dom.*;
 
 import at.fhj.osm.railway.component.RailNode;
 import at.fhj.osm.railway.component.RailWay;
+import at.fhj.osm.railway.component.RailwayStation;
 import at.fhj.osm.railway.view.MainFrame;
 
 public class GetData
@@ -32,10 +33,11 @@ public class GetData
 	   
 	   Vector<RailWay> vRailway = new Vector<RailWay>();
 	    Vector<RailNode> vRailnode = new Vector<RailNode>();
+	    Vector<RailwayStation> vRailstations = new Vector<RailwayStation>();
 	   ParseRailwayXmlData pxd = new ParseRailwayXmlData();
 	  if(pxd.initDom()){
 	   		pxd.getRailway(vRailway);
-		    pxd.getStationsAndNodes(vRailnode);
+		    pxd.getStationsAndNodes(vRailnode,vRailstations);
 		    
 		    for (RailWay railWay : vRailway) {
 		    	boolean found = false;
@@ -52,7 +54,7 @@ public class GetData
 		    	
 			}
 		    System.out.println();
-		    new MainFrame(vRailway);
+		    new MainFrame(vRailway,vRailstations);
 	   } 
 	   
 	   

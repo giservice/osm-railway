@@ -22,6 +22,7 @@ import org.w3c.dom.NodeList;
 
 import at.fhj.osm.railway.component.RailNode;
 import at.fhj.osm.railway.component.RailWay;
+import at.fhj.osm.railway.component.RailwayStation;
 
 public class ParseRailwayXmlData {
 	
@@ -117,7 +118,7 @@ public class ParseRailwayXmlData {
 	      }
 
 	
-	public void getStationsAndNodes(Vector<RailNode> vRailnode){
+	public void getStationsAndNodes(Vector<RailNode> vRailnode,Vector<RailwayStation> vRailstations){
 		String stLat="";
 		String stLon="";
 		int nid=0;
@@ -173,6 +174,54 @@ public class ParseRailwayXmlData {
 	      	 	
 	      	 	
 	        }
+             
+     	        
+     	        NodeList ndListChilds = nodeMain.getChildNodes();
+     	        
+     	        if( null == ndListChilds )  continue;
+     	        // Loop through the list of child nodes
+     	        for( int j=0; j<ndListChilds.getLength(); j++ )
+     	        {
+     	          nodeChild = ndListChilds.item( j );
+     	          if( null == nodeChild )  continue;
+     	          String sNodeName = nodeChild.getNodeName();
+     	          if( null == sNodeName )  continue;
+     	          step=0;
+     	          
+     	          boolean bName = false;
+     	          if( sNodeName.equals( "tag" ) )
+     	          {
+     	             NamedNodeMap nnm= nodeChild.getAttributes();
+     	            // System.out.println(nnm.toString() );
+     	             for( int k=0; k<nnm.getLength(); k++ )
+     		        {
+               	 	Node n=nnm.item(k);
+               	 	if(n.getNodeName().equals("k")&& n.getNodeValue().equals("name")){
+               	 	//	System.out.println("NAME:");
+               	 		bName = true;
+               	 		
+               	 	}
+               	 	
+               	 	if(n.getNodeName().equals("v")&& bName){
+               	 		bName = false;
+               	 	//	System.out.println("VALUE:"+n.toString());
+               	 		
+               	 		st=n.getNodeValue();
+               	 		RailwayStation rst=new RailwayStation(st, stLat, stLon);
+               	 		vRailstations.add(rst);
+               	 		//System.out.println("NODE:"+n.toString() );
+               	 		
+               	 	}
+               	 	
+               	 	
+               	 	
+               	 		
+               	 	
+               	 	
+     		        }
+     	          }
+     	        }
+     	        
 	        
 	        
 	     	

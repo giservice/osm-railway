@@ -6,10 +6,15 @@ public class RailwayStation {
 	public String name;
 	
 	
-	public RailwayStation(String n,int lat,int lon){
+	public RailwayStation(String n,String stlat,String stlon){
 		name = n;
-		this.lat= lat;
-		this.lon= lon;
+		float flon = Float.valueOf(stlon);
+		float flat = Float.valueOf(stlat);
+		lon=(int) (flon*10000);
+		lat=(int) (flat*10000);
+		
 	}
+	
+
 
 }
