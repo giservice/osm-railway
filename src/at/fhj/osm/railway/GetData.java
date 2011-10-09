@@ -19,7 +19,7 @@ public class GetData
    public static void main( String[] args ) throws XMLStreamException
    {
 	   startTime = System.currentTimeMillis();
-	  ParseXmlData pxd = new ParseXmlData();
+	  ParseOsmData pxd = new ParseOsmData();
 	
 	   if(pxd.initDom()){
 	   		pxd.getRailway();

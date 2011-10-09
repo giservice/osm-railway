@@ -20,7 +20,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class ParseXmlData {
+public class ParseOsmData {
 	
 	private Document document,newdocument;
     private Node rootNode;
@@ -30,7 +30,7 @@ public class ParseXmlData {
     
     private int nodeId[]=new int[10000];
 	
-	public ParseXmlData(){
+	public ParseOsmData(){
 		
 	}
 	// This method writes a DOM document to a file
