@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import at.fhj.osm.railway.component.RailWay;
 import at.fhj.osm.railway.component.RailwayStation;
 
 public class RailwayView extends JPanel{
@@ -22,6 +23,7 @@ public class RailwayView extends JPanel{
 	int offset_lat=473800;
 	int offset_lon=151500;
 	int x,y;
+	int x1,x2,y1,y2;
 	int width=960;
 	int heigth = 480;
 	
@@ -29,7 +31,10 @@ public class RailwayView extends JPanel{
 	
 	Vector<RailwayStation> vrws = new Vector<RailwayStation>();
 	
-	public RailwayView(){
+	Vector<RailWay> vRailway;
+	
+	public RailwayView(Vector<RailWay> vway){
+		this.vRailway = vway;
 		this.setPreferredSize(new Dimension(width,heigth));
 		myFont=new Font("Arial", Font.PLAIN, 9);
 		vrws.add(new RailwayStation("Niklasdorf", 473939,151553));
@@ -64,6 +69,14 @@ public class RailwayView extends JPanel{
 		  
 		  g2d.drawString("lat="+offset_lat, width/2, heigth -10);
 		  g2d.drawString("lon="+offset_lon, 10, heigth/2);
+		  
+		  for (RailWay railWay : vRailway) {
+			  x1 = (railWay.fromNode.lon-offset_lon)/2;
+			  y1 = heigth-(railWay.fromNode.lat-offset_lat)/2;
+			  x2 = (railWay.toNode.lon-offset_lon)/2;
+			  y2 = heigth-(railWay.toNode.lat-offset_lat)/2;
+			  g.drawLine(x1, y1, x2, y2);
+		  }
 		  
 		 
 		  
