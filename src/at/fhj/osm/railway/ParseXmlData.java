@@ -75,7 +75,7 @@ public class ParseXmlData {
 	        }
 	        
 	        newdocument.appendChild(root);
-	        writeXmlFile(newdocument, "output/3.xml");
+	        writeXmlFile(newdocument, "output/railway.xml");
 	        
 	        
 	  
@@ -201,6 +201,7 @@ public class ParseXmlData {
 	      // System.out.println( "\nNode list at the beginning:" );
 	      // printNodesFromList( ndList );
 	      String st="";
+	      boolean added=false;
 	      // ---- Loop through the list of main nodes ----
 	      for( int i=0; i<ndList.getLength(); i++ )
 	      {
@@ -216,6 +217,7 @@ public class ParseXmlData {
 	      	 		for(int g=0;g<lastId+1;g++){
 	      	 			if(nodeId[g]==nid){
 	      	 				xmlNote.add(nodeMain);
+	      	 				added = true;
 	      	 				continue;
 	      	 			}
 	      	 			
@@ -225,7 +227,7 @@ public class ParseXmlData {
 	        }
 	        
 	        
-	        
+	        if(!added){
 	        
 	        NodeList ndListChilds = nodeMain.getChildNodes();
 	        
@@ -287,6 +289,7 @@ public class ParseXmlData {
           	 	
 		        }
 	          }
+	        }
 	        }
 	      }
 	}

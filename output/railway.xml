@@ -1266,11 +1266,6 @@
   <tag k="railway" v="station"/>
   <tag k="uic_ref" v="8101275"/>
  </node>
-<node changeset="7965376" id="25528028" lat="47.3939017" lon="15.1553276" timestamp="2011-04-25T16:14:00Z" uid="321042" user="species" version="5" visible="true">
-  <tag k="name" v="Niklasdorf"/>
-  <tag k="railway" v="station"/>
-  <tag k="uic_ref" v="8101275"/>
- </node>
 <node changeset="6427459" id="25528029" lat="47.3953973" lon="15.1613436" timestamp="2010-11-21T22:12:41Z" uid="364359" user="Borut@OSM" version="2" visible="true">
   <tag k="created_by" v="JOSM"/>
  </node>
@@ -1360,13 +1355,6 @@
   <tag k="uic_name" v="Bruck a.d. Mur"/>
   <tag k="uic_ref" v="8100032"/>
  </node>
-<node changeset="8792047" id="248072578" lat="47.4138721" lon="15.2794411" timestamp="2011-07-21T19:57:30Z" uid="64910" user="uhu01" version="9" visible="true">
-  <tag k="name" v="Bruck an der Mur"/>
-  <tag k="note" v="bitte zwecks Einheitlichkeit nur die lt. OSM wiki vorgeschlagene Namensbezeichnung verwenden (ohne vorangesetztes 'Bahnhof')."/>
-  <tag k="railway" v="station"/>
-  <tag k="uic_name" v="Bruck a.d. Mur"/>
-  <tag k="uic_ref" v="8100032"/>
- </node>
 <node changeset="1910517" id="248072584" lat="47.4499151" lon="15.3055442" timestamp="2009-07-23T02:09:46Z" uid="56501" user="Rudolf_H" version="4" visible="true"/>
 <node changeset="8792047" id="248072638" lat="47.4109622" lon="15.2816870" timestamp="2011-07-21T19:57:30Z" uid="64910" user="uhu01" version="10" visible="true"/>
 <node changeset="8792047" id="248072638" lat="47.4109622" lon="15.2816870" timestamp="2011-07-21T19:57:30Z" uid="64910" user="uhu01" version="10" visible="true"/>
@@ -1411,11 +1399,6 @@
 <node changeset="1910669" id="279917642" lat="47.4363172" lon="15.2832316" timestamp="2009-07-23T02:57:05Z" uid="56501" user="Rudolf_H" version="11" visible="true"/>
 <node changeset="396349" id="279917965" lat="47.4438401" lon="15.2892350" timestamp="2008-08-25T01:55:26Z" uid="56501" user="Rudolf_H" version="2" visible="true"/>
 <node changeset="396349" id="279917965" lat="47.4438401" lon="15.2892350" timestamp="2008-08-25T01:55:26Z" uid="56501" user="Rudolf_H" version="2" visible="true"/>
-<node changeset="1676539" id="290857575" lat="47.4451179" lon="15.2920883" timestamp="2009-06-29T13:36:08Z" uid="56501" user="Rudolf_H" version="2" visible="true">
-  <tag k="name" v="Kapfenberg"/>
-  <tag k="railway" v="station"/>
-  <tag k="uic_ref" v="8100031"/>
- </node>
 <node changeset="1676539" id="290857575" lat="47.4451179" lon="15.2920883" timestamp="2009-06-29T13:36:08Z" uid="56501" user="Rudolf_H" version="2" visible="true">
   <tag k="name" v="Kapfenberg"/>
   <tag k="railway" v="station"/>
@@ -1922,8 +1905,4 @@
 <node changeset="9283216" id="1431215721" lat="47.4014388" lon="15.2879615" timestamp="2011-09-12T19:18:29Z" uid="289334" user="Soldier Boy" version="1" visible="true"/>
 <node changeset="9283216" id="1431215734" lat="47.4055818" lon="15.2753875" timestamp="2011-09-12T19:18:29Z" uid="289334" user="Soldier Boy" version="1" visible="true"/>
 <node changeset="9283216" id="1431215735" lat="47.4056243" lon="15.2761031" timestamp="2011-09-12T19:18:30Z" uid="289334" user="Soldier Boy" version="1" visible="true"/>
-<node changeset="9283216" id="1431215736" lat="47.4056728" lon="15.2768073" timestamp="2011-09-12T19:18:30Z" uid="289334" user="Soldier Boy" version="1" visible="true"/>
-<node changeset="9459826" id="1453668141" lat="47.4545976" lon="15.3289028" timestamp="2011-10-03T12:40:42Z" uid="499857" user="AlexxieD" version="1" visible="true">
-  <tag k="name" v="Kapfenberg Fachhochschule"/>
-  <tag k="railway" v="station"/>
- </node></mado>
+<node changeset="9283216" id="1431215736" lat="47.4056728" lon="15.2768073" timestamp="2011-09-12T19:18:30Z" uid="289334" user="Soldier Boy" version="1" visible="true"/></mado>
