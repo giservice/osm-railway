@@ -55,6 +55,7 @@ public class GetData
 			}
 		    System.out.println();
 		    new MainFrame(vRailway,vRailstations);
+		    System.out.println(GetData.getTime()+ "End");
 	   } 
 	   
 	   

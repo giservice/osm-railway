@@ -114,7 +114,7 @@ public class ParseRailwayXmlData {
 	        }
 	       
 	      }
-	      	System.out.println("Ref Ways:"+vRailway.size());
+	      	System.out.println(GetData.getTime()+ "Ref Ways:"+vRailway.size());
 	      }
 
 	
@@ -226,7 +226,7 @@ public class ParseRailwayXmlData {
 	        
 	     	
 	      }
-	      System.out.println("Ref Nodes:"+vRailnode.size());
+	      System.out.println(GetData.getTime()+ "Ref Nodes:"+vRailnode.size());
 	}
 	
 	
