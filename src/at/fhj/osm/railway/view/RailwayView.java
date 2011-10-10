@@ -21,10 +21,10 @@ public class RailwayView extends JPanel{
 	
 	int points[][] = {{473939,151553},{474139,152794},{474451,152921},{474546,153289}};
 	int offset_lat=473700;
-	int offset_lon=151000;
+	int offset_lon=151050;
 	int x,y;
 	int x1,x2,y1,y2;
-	int width=1400;
+	int width=1300;
 	int heigth = 500;
 	
 	Font myFont;
