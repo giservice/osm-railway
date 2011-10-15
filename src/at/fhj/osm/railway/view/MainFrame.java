@@ -42,7 +42,7 @@ public class MainFrame extends JFrame implements AdjustmentListener {
 	public void adjustmentValueChanged(AdjustmentEvent e) {
 		// TODO Auto-generated method stub
 		
-		if(rwv!=null){
+		if(sp!=null){
 			//rwv.repaint();
 			sp.repaint();
 		}
