@@ -49,7 +49,7 @@ public class ParseRailwayXmlData {
 	      // factory.setNamespaceAware( true );
 	      DocumentBuilder builder  = factory.newDocumentBuilder();
 	      
-	      document = builder.parse( new File( "output/railway.xml" ) );
+	      document = builder.parse( new File( "output/osmfilter-pk.xml" ) );
 	      rootNode = document.getDocumentElement();
 	      return true;
 		}catch(Exception e){

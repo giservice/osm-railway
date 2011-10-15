@@ -19,13 +19,19 @@ public class RailwayView extends JPanel{
 	 */
 	private static final long serialVersionUID = -384326067871796982L;
 	
-	int points[][] = {{473939,151553},{474139,152794},{474451,152921},{474546,153289}};
 	int offset_lat=473700;
 	int offset_lon=151050;
 	int x,y;
 	int x1,x2,y1,y2;
-	int width=1300;
-	int heigth = 500;
+//	int width=1300;
+//	int heigth = 500;
+	int width=2600;
+	int heigth = 1000;
+	
+	int max_lat,lat;
+	int max_lon,lon;
+	
+	int div=4;
 	
 	Font myFont;
 	
@@ -38,7 +44,8 @@ public class RailwayView extends JPanel{
 		this.vrws = vrws;
 		this.setPreferredSize(new Dimension(width,heigth));
 		myFont=new Font("Arial", Font.PLAIN, 10);
-		
+		max_lat=offset_lat + heigth * div;
+		max_lon=offset_lon + width * div;
 	}
 	
 	/**
@@ -51,27 +58,33 @@ public class RailwayView extends JPanel{
 			//Font erzeugen
 		  for(int k=0;k<vrws.size();k++){
 			  RailwayStation rs=vrws.elementAt(k);
-			  x = (rs.lon-offset_lon)/2;
-			  y = heigth-(rs.lat-offset_lat)/2;
-			  g.drawRect(x-2, y-2, 4, 4);
-			  g2d.drawString(rs.name, x-10, y-20);
+			  if(rs.lon<max_lon && rs.lon>offset_lon && rs.lat<max_lat && rs.lat>offset_lat){
+				  x = (rs.lon-offset_lon)/div;
+				  y = heigth-(rs.lat-offset_lat)/div;
+			  
+				  g.drawRect(x-2, y-2, 4, 4);
+				  g2d.drawString(rs.name, x-10, y-20);
+			  }
 		  }
-	/*	  
-		  for(int j=0;j<points.length;j++){
-			  x = (points[j][1]-offset_lon)/2;
-			  y = heigth-(points[j][0]-offset_lat)/2;
-			  g.drawRect(x, y, 4, 4);
-		  } */
+	
 		  
 		  g2d.drawString("lat="+offset_lat, width/2, heigth -10);
 		  g2d.drawString("lon="+offset_lon, 10, heigth/2);
 		  
+		  g2d.drawString("lat="+max_lat, width/2, 10);
+		  g2d.drawString("lon="+max_lon, width-100, heigth/2);
+		  
 		  for (RailWay railWay : vRailway) {
-			  x1 = (railWay.fromNode.lon-offset_lon)/2;
-			  y1 = heigth-(railWay.fromNode.lat-offset_lat)/2;
-			  x2 = (railWay.toNode.lon-offset_lon)/2;
-			  y2 = heigth-(railWay.toNode.lat-offset_lat)/2;
-			  g.drawLine(x1, y1, x2, y2);
+			  if(railWay.fromNode.lon<max_lon && railWay.fromNode.lon>offset_lon && railWay.fromNode.lat<max_lat && railWay.fromNode.lat>offset_lat){
+				  if(railWay.toNode.lon<max_lon && railWay.toNode.lon>offset_lon && railWay.toNode.lat<max_lat && railWay.toNode.lat>offset_lat){
+							
+					  x1 = (railWay.fromNode.lon-offset_lon)/div;
+					  y1 = heigth-(railWay.fromNode.lat-offset_lat)/div;
+					  x2 = (railWay.toNode.lon-offset_lon)/div;
+					  y2 = heigth-(railWay.toNode.lat-offset_lat)/div;
+					  g.drawLine(x1, y1, x2, y2);
+				  }
+			 }
 		  }
 		  
 		 
