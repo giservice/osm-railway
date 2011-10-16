@@ -23,6 +23,7 @@ import org.w3c.dom.NodeList;
 import at.fhj.osm.railway.component.RailNode;
 import at.fhj.osm.railway.component.RailWay;
 import at.fhj.osm.railway.component.RailwayStation;
+import at.fhj.osm.railway.component.WaterNode;
 import at.fhj.osm.railway.component.WaterWay;
 
 public class ParseRailwayXmlData {
@@ -139,14 +140,14 @@ public class ParseRailwayXmlData {
 		          	 			
 		          	 			for(s=0;s<pos-1;s++){
 		          	 				RailWay rw=new RailWay(nodeId[s],nodeId[s+1] );
-		          	 				nodeIdRail[riverPos++]=nodeId[s];
+		          	 				nodeIdRail[railPos++]=nodeId[s];
 			          	 	//		lastId=id;
 			          	 			vRailway.add(rw);
 		          	 			}
-		          	 			nodeIdRail[riverPos++]=nodeId[s];
+		          	 			nodeIdRail[railPos++]=nodeId[s];
 		          	 		}
 		          	 		if(n.getNodeValue().equals("waterway")){
-		          	 			for(s=0;s<pos-2;s++){
+		          	 			for(s=0;s<pos-1;s++){
 		          	 				WaterWay ww=new WaterWay(nodeId[s],nodeId[s+1] );
 		          	 				nodeIdRiver[riverPos++]=nodeId[s];
 			          	 	//		lastId=id;
@@ -176,10 +177,11 @@ public class ParseRailwayXmlData {
 	       
 	      }
 	      	System.out.println(GetData.getTime()+ "Ref Ways:"+vRailway.size());
+	      	System.out.println(GetData.getTime()+ "Ref Ways River:"+vWaterway.size());
 	      }
 
 	
-	public void getStationsAndNodes(Vector<RailNode> vRailnode,Vector<RailwayStation> vRailstations){
+	public void getStationsAndNodes(Vector<RailNode> vRailnode,Vector<RailwayStation> vRailstations,Vector<WaterNode> vWaternode){
 		String stLat="";
 		String stLon="";
 		int nid=0;
@@ -209,8 +211,9 @@ public class ParseRailwayXmlData {
 	      	 		nid=Integer.parseInt(n.getNodeValue());      	 		
 	      	 		step++;
 	      	 		if(step>2){
-		      	 		RailNode rn=new RailNode(nid, stLat, stLon);
-		      	 		vRailnode.add(rn);
+		      	 	//	RailNode rn=new RailNode(nid, stLat, stLon);
+		      	 	//	vRailnode.add(rn);
+		      	 		addNode(nid, stLat, stLon,vRailnode,vWaternode );
 		      	 		
 		      	 	}
 	      	 	}
@@ -218,8 +221,9 @@ public class ParseRailwayXmlData {
 	      	 		stLat=n.getNodeValue();      	 		
 	      	 		step++;
 	      	 		if(step>2){
-		      	 		RailNode rn=new RailNode(nid, stLat, stLon);
-		      	 		vRailnode.add(rn);
+		      	 	//	RailNode rn=new RailNode(nid, stLat, stLon);
+		      	 	//	vRailnode.add(rn);
+		      	 		addNode(nid, stLat, stLon,vRailnode,vWaternode );
 		      	 		
 		      	 	}
 	      	 	}
@@ -227,8 +231,9 @@ public class ParseRailwayXmlData {
 	      	 		stLon=n.getNodeValue();        	 		
 	      	 		step++;
 	      	 		if(step>2){
-		      	 		RailNode rn=new RailNode(nid, stLat, stLon);
-		      	 		vRailnode.add(rn);
+	      	 			addNode(nid, stLat, stLon,vRailnode,vWaternode );
+		      	 		//RailNode rn=new RailNode(nid, stLat, stLon);
+		      	 		//vRailnode.add(rn);
 		      	 		
 		      	 	}
 	      	 	}
@@ -288,6 +293,30 @@ public class ParseRailwayXmlData {
 	     	
 	      }
 	      System.out.println(GetData.getTime()+ "Ref Nodes:"+vRailnode.size());
+	}
+	
+	private void addNode( int nid,String stLat,String stLon,Vector<RailNode> vRailnode,Vector<WaterNode> vWaternode){
+		boolean found = false;
+		for(int k=0;k<railPos && !found;k++){
+			if(nid==nodeIdRail[k]){
+				found = true;
+				RailNode rn=new RailNode(nid, stLat, stLon);
+      	 		vRailnode.add(rn);
+			}
+		}
+		
+		for(int k=0;k<riverPos && !found;k++){
+			if(nid==nodeIdRiver[k]){
+				found = true;
+				WaterNode wn = new WaterNode(nid, stLat, stLon);
+				vWaternode.add(wn);
+			
+			}
+		}
+		
+		
+		
+		
 	}
 	
 	

@@ -1,5 +1,6 @@
 package at.fhj.osm.railway.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -11,6 +12,8 @@ import javax.swing.JPanel;
 
 import at.fhj.osm.railway.component.RailWay;
 import at.fhj.osm.railway.component.RailwayStation;
+import at.fhj.osm.railway.component.WaterNode;
+import at.fhj.osm.railway.component.WaterWay;
 
 public class RailwayView extends JPanel{
 
@@ -31,17 +34,20 @@ public class RailwayView extends JPanel{
 	int max_lat,lat;
 	int max_lon,lon;
 	
-	int div=4;
+	int div=2;
 	
 	Font myFont;
 	
-	Vector<RailwayStation> vrws = new Vector<RailwayStation>();
+	Vector<RailwayStation> vrws;
 	
 	Vector<RailWay> vRailway;
 	
-	public RailwayView(Vector<RailWay> vway,Vector<RailwayStation> vrws){
+	Vector<WaterWay> vWaterway;
+	
+	public RailwayView(Vector<RailWay> vway,Vector<RailwayStation> vrws,Vector<WaterWay> vww){
 		this.vRailway = vway;
 		this.vrws = vrws;
+		this.vWaterway = vww;
 		this.setPreferredSize(new Dimension(width,heigth));
 		myFont=new Font("Arial", Font.PLAIN, 10);
 		max_lat=offset_lat + heigth * div;
@@ -55,6 +61,7 @@ public class RailwayView extends JPanel{
 	  {    
 		  Graphics2D g2d=(Graphics2D)g;
 		  g2d.setFont(myFont);
+		  g.setColor(Color.BLACK);
 			//Font erzeugen
 		  for(int k=0;k<vrws.size();k++){
 			  RailwayStation rs=vrws.elementAt(k);
@@ -82,6 +89,19 @@ public class RailwayView extends JPanel{
 					  y1 = heigth-(railWay.fromNode.lat-offset_lat)/div;
 					  x2 = (railWay.toNode.lon-offset_lon)/div;
 					  y2 = heigth-(railWay.toNode.lat-offset_lat)/div;
+					  g.drawLine(x1, y1, x2, y2);
+				  }
+			 }
+		  }
+		  g.setColor(Color.BLUE);
+		  for (WaterWay waterWay : vWaterway) {
+			  if(waterWay.fromNode.lon<max_lon && waterWay.fromNode.lon>offset_lon && waterWay.fromNode.lat<max_lat && waterWay.fromNode.lat>offset_lat){
+				  if(waterWay.toNode.lon<max_lon && waterWay.toNode.lon>offset_lon && waterWay.toNode.lat<max_lat && waterWay.toNode.lat>offset_lat){
+							
+					  x1 = (waterWay.fromNode.lon-offset_lon)/div;
+					  y1 = heigth-(waterWay.fromNode.lat-offset_lat)/div;
+					  x2 = (waterWay.toNode.lon-offset_lon)/div;
+					  y2 = heigth-(waterWay.toNode.lat-offset_lat)/div;
 					  g.drawLine(x1, y1, x2, y2);
 				  }
 			 }
