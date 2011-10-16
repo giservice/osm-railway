@@ -23,18 +23,32 @@ import org.w3c.dom.NodeList;
 import at.fhj.osm.railway.component.RailNode;
 import at.fhj.osm.railway.component.RailWay;
 import at.fhj.osm.railway.component.RailwayStation;
+import at.fhj.osm.railway.component.WaterWay;
 
 public class ParseRailwayXmlData {
 	
 	private Document document,newdocument;
     private Node rootNode;
-    private Vector<Node> xmlNote = new Vector<Node>();
+ //   private Vector<Node> xmlNote = new Vector<Node>();
     
     
     
     private int lastId,actId;
     
-    private int nodeId[]=new int[10000];
+//    private int lastIdWater,actIdWater;
+    
+    private int nodeId[]=new int[1000];
+    
+    private int pos =0;
+    
+    private int riverPos = 0;
+    private int nodeIdRiver[]=new int[10000];
+    private int railPos = 0;
+    private int nodeIdRail[]=new int[10000];
+    
+    
+    
+    
 	
 	public ParseRailwayXmlData(){
 		
@@ -49,7 +63,7 @@ public class ParseRailwayXmlData {
 	      // factory.setNamespaceAware( true );
 	      DocumentBuilder builder  = factory.newDocumentBuilder();
 	      
-	      document = builder.parse( new File( "output/osmfilter-pk.xml" ) );
+	      document = builder.parse( new File( "output/osmfilter-pk-rail-river.xml" ) );
 	      rootNode = document.getDocumentElement();
 	      return true;
 		}catch(Exception e){
@@ -57,7 +71,7 @@ public class ParseRailwayXmlData {
 		}
 		return false;
 	}
-	public void getRailway(Vector<RailWay> vRailway){
+	public void getRailway(Vector<RailWay> vRailway,Vector<WaterWay> vWaterway){
 		
 		
 		// ---- Get list of nodes to given tag ----
@@ -71,7 +85,7 @@ public class ParseRailwayXmlData {
 	        Node     nodeMain     = ndList.item( i );
 	        Node     nodeChild    = null;
 	        NodeList ndListChilds = nodeMain.getChildNodes();
-	       
+	        pos =0;
 	        lastId=0;
 	        if( null == ndListChilds )  continue;
 	        // Loop through the list of child nodes
@@ -93,20 +107,67 @@ public class ParseRailwayXmlData {
 		          	 	Node n=nnm.item(k);
 		          	 	if(n.getNodeName().equals("ref")){	
 		          	 		int id=Integer.parseInt(n.getNodeValue());
-		          	 		if(lastId==0){
+		          	 		nodeId[pos] = id;
+		          	 		pos++;
+		          	 		nodeId[pos] =0;
+		          	 	/*	if(lastId==0){
 		          	 			lastId=id;
 		          	 			
 		          	 		}else{
 		          	 			RailWay rw=new RailWay(lastId, id);
 		          	 			lastId=id;
 		          	 			vRailway.add(rw);
-		          	 		}
+		          	 		}  */
 		          	 		
-		          	 		
-		          	 		
-		          	 	
 		          	 		
 		          	 	}
+		          	 	
+		          	 	
+		          	 	
+			        }
+	          }
+	          if( sNodeName.equals( "tag" ) ){
+	        	  NamedNodeMap nnm= nodeChild.getAttributes();
+		            // System.out.println(nnm.toString() );
+		             for( int k=0; k<nnm.getLength(); k++ )
+			        {
+		          	 	Node n=nnm.item(k);
+		          	 	if(n.getNodeName().equals("k")){	
+		          	 		int s;
+		          	 		if(n.getNodeValue().equals("railway")){
+		          	 			
+		          	 			
+		          	 			for(s=0;s<pos-1;s++){
+		          	 				RailWay rw=new RailWay(nodeId[s],nodeId[s+1] );
+		          	 				nodeIdRail[riverPos++]=nodeId[s];
+			          	 	//		lastId=id;
+			          	 			vRailway.add(rw);
+		          	 			}
+		          	 			nodeIdRail[riverPos++]=nodeId[s];
+		          	 		}
+		          	 		if(n.getNodeValue().equals("waterway")){
+		          	 			for(s=0;s<pos-2;s++){
+		          	 				WaterWay ww=new WaterWay(nodeId[s],nodeId[s+1] );
+		          	 				nodeIdRiver[riverPos++]=nodeId[s];
+			          	 	//		lastId=id;
+			          	 			vWaterway.add(ww);
+		          	 			}
+		          	 			nodeIdRiver[riverPos++]=nodeId[s];
+		          	 		}
+		          	 	/*	if(lastId==0){
+		          	 			lastId=id;
+		          	 			
+		          	 		}else{
+		          	 			RailWay rw=new RailWay(lastId, id);
+		          	 			lastId=id;
+		          	 			vRailway.add(rw);
+		          	 		} */
+		          	 		
+		          	 		
+		          	 	}
+		          	 	
+		          	 	
+		          	 	
 			        }
 	          }
 	          
