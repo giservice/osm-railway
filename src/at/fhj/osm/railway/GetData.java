@@ -13,6 +13,8 @@ import org.w3c.dom.*;
 import at.fhj.osm.railway.component.RailNode;
 import at.fhj.osm.railway.component.RailWay;
 import at.fhj.osm.railway.component.RailwayStation;
+import at.fhj.osm.railway.component.StreetNode;
+import at.fhj.osm.railway.component.StreetWay;
 import at.fhj.osm.railway.component.WaterNode;
 import at.fhj.osm.railway.component.WaterWay;
 import at.fhj.osm.railway.view.MainFrame;
@@ -38,10 +40,16 @@ public class GetData
 	    Vector<WaterWay> vWaterway = new Vector<WaterWay>();
 	    Vector<WaterNode> vWaternode = new Vector<WaterNode>();
 	    Vector<RailwayStation> vRailstations = new Vector<RailwayStation>();
+	    
+	    Vector<StreetWay> vStreetway = new Vector<StreetWay>();
+	    Vector<StreetNode> vStreetNode = new Vector<StreetNode>();
+	    
+	    
+	    
 	   ParseRailwayXmlData pxd = new ParseRailwayXmlData();
 	  if(pxd.initDom()){
-	   		pxd.getRailway(vRailway,vWaterway);
-		    pxd.getStationsAndNodes(vRailnode,vRailstations,vWaternode);
+	   		pxd.getRailway(vRailway,vWaterway,vStreetway);
+		    pxd.getStationsAndNodes(vRailnode,vRailstations,vWaternode,vStreetNode);
 		    
 		    for (RailWay railWay : vRailway) {
 		    	boolean found = false;
@@ -71,8 +79,23 @@ public class GetData
 		    	
 		    	
 			}
+		    for (StreetWay streetWay : vStreetway) {
+		    	boolean found = false;
+		    	for (StreetNode streetNode : vStreetNode) {
+		    		if(streetWay.from == streetNode.id){
+		    			streetWay.fromNode = streetNode;
+		    		}
+		    		if(streetWay.to == streetNode.id){
+		    			streetWay.toNode = streetNode;
+		    		}
+					
+				}
+		    	
+		    	
+			}
+		    
 		    System.out.println();
-		    new MainFrame(vRailway,vRailstations,vWaterway);
+		    new MainFrame(vRailway,vRailstations,vWaterway,vStreetway);
 		    System.out.println(GetData.getTime()+ "End");
 	   } 
 	   

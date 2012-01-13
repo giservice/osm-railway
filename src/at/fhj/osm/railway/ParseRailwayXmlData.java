@@ -23,6 +23,8 @@ import org.w3c.dom.NodeList;
 import at.fhj.osm.railway.component.RailNode;
 import at.fhj.osm.railway.component.RailWay;
 import at.fhj.osm.railway.component.RailwayStation;
+import at.fhj.osm.railway.component.StreetNode;
+import at.fhj.osm.railway.component.StreetWay;
 import at.fhj.osm.railway.component.WaterNode;
 import at.fhj.osm.railway.component.WaterWay;
 
@@ -47,6 +49,9 @@ public class ParseRailwayXmlData {
     private int railPos = 0;
     private int nodeIdRail[]=new int[10000];
     
+    private int streetPos = 0;
+    private int nodeIdStreet[]=new int[10000];
+    
     
     
     
@@ -64,7 +69,9 @@ public class ParseRailwayXmlData {
 	      // factory.setNamespaceAware( true );
 	      DocumentBuilder builder  = factory.newDocumentBuilder();
 	      
-	      document = builder.parse( new File( "output/osmfilter-pk-rail-river.xml" ) );
+	  //    document = builder.parse( new File( "output/osmfilter-pk-rail-river.xml" ) );
+	      document = builder.parse( new File( "output/osmfilter-pk-rail-river-street.xml" ) );
+		   
 	      rootNode = document.getDocumentElement();
 	      return true;
 		}catch(Exception e){
@@ -72,7 +79,7 @@ public class ParseRailwayXmlData {
 		}
 		return false;
 	}
-	public void getRailway(Vector<RailWay> vRailway,Vector<WaterWay> vWaterway){
+	public void getRailway(Vector<RailWay> vRailway,Vector<WaterWay> vWaterway,Vector<StreetWay> vStreetway){
 		
 		
 		// ---- Get list of nodes to given tag ----
@@ -155,6 +162,16 @@ public class ParseRailwayXmlData {
 		          	 			}
 		          	 			nodeIdRiver[riverPos++]=nodeId[s];
 		          	 		}
+		          	 		if(n.getNodeValue().equals("highway")){
+		          	 			for(s=0;s<pos-1;s++){
+		          	 				StreetWay sw=new StreetWay(nodeId[s],nodeId[s+1] );
+		          	 				nodeIdStreet[streetPos++]=nodeId[s];
+			          	 	//		lastId=id;
+			          	 			vStreetway.add(sw);
+		          	 			}
+		          	 			nodeIdStreet[streetPos++]=nodeId[s];
+		          	 		}
+		          	 		
 		          	 	/*	if(lastId==0){
 		          	 			lastId=id;
 		          	 			
@@ -178,10 +195,11 @@ public class ParseRailwayXmlData {
 	      }
 	      	System.out.println(GetData.getTime()+ "Ref Ways:"+vRailway.size());
 	      	System.out.println(GetData.getTime()+ "Ref Ways River:"+vWaterway.size());
+	      	System.out.println(GetData.getTime()+ "Ref Ways Street:"+vStreetway.size());
 	      }
 
 	
-	public void getStationsAndNodes(Vector<RailNode> vRailnode,Vector<RailwayStation> vRailstations,Vector<WaterNode> vWaternode){
+	public void getStationsAndNodes(Vector<RailNode> vRailnode,Vector<RailwayStation> vRailstations,Vector<WaterNode> vWaternode,Vector<StreetNode> vStreetNode){
 		String stLat="";
 		String stLon="";
 		int nid=0;
@@ -213,7 +231,7 @@ public class ParseRailwayXmlData {
 	      	 		if(step>2){
 		      	 	//	RailNode rn=new RailNode(nid, stLat, stLon);
 		      	 	//	vRailnode.add(rn);
-		      	 		addNode(nid, stLat, stLon,vRailnode,vWaternode );
+		      	 		addNode(nid, stLat, stLon,vRailnode,vWaternode,vStreetNode );
 		      	 		
 		      	 	}
 	      	 	}
@@ -223,7 +241,7 @@ public class ParseRailwayXmlData {
 	      	 		if(step>2){
 		      	 	//	RailNode rn=new RailNode(nid, stLat, stLon);
 		      	 	//	vRailnode.add(rn);
-		      	 		addNode(nid, stLat, stLon,vRailnode,vWaternode );
+		      	 		addNode(nid, stLat, stLon,vRailnode,vWaternode,vStreetNode );
 		      	 		
 		      	 	}
 	      	 	}
@@ -231,7 +249,7 @@ public class ParseRailwayXmlData {
 	      	 		stLon=n.getNodeValue();        	 		
 	      	 		step++;
 	      	 		if(step>2){
-	      	 			addNode(nid, stLat, stLon,vRailnode,vWaternode );
+	      	 			addNode(nid, stLat, stLon,vRailnode,vWaternode,vStreetNode );
 		      	 		//RailNode rn=new RailNode(nid, stLat, stLon);
 		      	 		//vRailnode.add(rn);
 		      	 		
@@ -295,7 +313,7 @@ public class ParseRailwayXmlData {
 	      System.out.println(GetData.getTime()+ "Ref Nodes:"+vRailnode.size());
 	}
 	
-	private void addNode( int nid,String stLat,String stLon,Vector<RailNode> vRailnode,Vector<WaterNode> vWaternode){
+	private void addNode( int nid,String stLat,String stLon,Vector<RailNode> vRailnode,Vector<WaterNode> vWaternode,Vector<StreetNode> vStreetnode){
 		boolean found = false;
 		for(int k=0;k<railPos && !found;k++){
 			if(nid==nodeIdRail[k]){
@@ -310,6 +328,14 @@ public class ParseRailwayXmlData {
 				found = true;
 				WaterNode wn = new WaterNode(nid, stLat, stLon);
 				vWaternode.add(wn);
+			
+			}
+		}
+		for(int k=0;k<streetPos && !found;k++){
+			if(nid==nodeIdStreet[k]){
+				found = true;
+				StreetNode sn = new StreetNode(nid, stLat, stLon);
+				vStreetnode.add(sn);
 			
 			}
 		}

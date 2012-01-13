@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import at.fhj.osm.railway.component.RailWay;
 import at.fhj.osm.railway.component.RailwayStation;
+import at.fhj.osm.railway.component.StreetWay;
 import at.fhj.osm.railway.component.WaterNode;
 import at.fhj.osm.railway.component.WaterWay;
 
@@ -44,10 +45,13 @@ public class RailwayView extends JPanel{
 	
 	Vector<WaterWay> vWaterway;
 	
-	public RailwayView(Vector<RailWay> vway,Vector<RailwayStation> vrws,Vector<WaterWay> vww){
+	Vector<StreetWay> vStreetway;
+	
+	public RailwayView(Vector<RailWay> vway,Vector<RailwayStation> vrws,Vector<WaterWay> vww,Vector<StreetWay> vsw){
 		this.vRailway = vway;
 		this.vrws = vrws;
 		this.vWaterway = vww;
+		this.vStreetway = vsw;
 		this.setPreferredSize(new Dimension(width,heigth));
 		myFont=new Font("Arial", Font.PLAIN, 10);
 		max_lat=offset_lat + heigth * div;
@@ -102,6 +106,20 @@ public class RailwayView extends JPanel{
 					  y1 = heigth-(waterWay.fromNode.lat-offset_lat)/div;
 					  x2 = (waterWay.toNode.lon-offset_lon)/div;
 					  y2 = heigth-(waterWay.toNode.lat-offset_lat)/div;
+					  g.drawLine(x1, y1, x2, y2);
+				  }
+			 }
+		  }
+		  
+		  g.setColor(Color.RED);
+		  for (StreetWay streetWay : vStreetway) {
+			  if(streetWay.fromNode.lon<max_lon && streetWay.fromNode.lon>offset_lon && streetWay.fromNode.lat<max_lat && streetWay.fromNode.lat>offset_lat){
+				  if(streetWay.toNode.lon<max_lon && streetWay.toNode.lon>offset_lon && streetWay.toNode.lat<max_lat && streetWay.toNode.lat>offset_lat){
+							
+					  x1 = (streetWay.fromNode.lon-offset_lon)/div;
+					  y1 = heigth-(streetWay.fromNode.lat-offset_lat)/div;
+					  x2 = (streetWay.toNode.lon-offset_lon)/div;
+					  y2 = heigth-(streetWay.toNode.lat-offset_lat)/div;
 					  g.drawLine(x1, y1, x2, y2);
 				  }
 			 }

@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 
 import at.fhj.osm.railway.component.RailWay;
 import at.fhj.osm.railway.component.RailwayStation;
+import at.fhj.osm.railway.component.StreetWay;
 import at.fhj.osm.railway.component.WaterWay;
 
 
@@ -24,10 +25,10 @@ public class MainFrame extends JFrame implements AdjustmentListener {
 	
 	JScrollPane sp;
 	
-	public MainFrame(Vector<RailWay> vRailway,Vector<RailwayStation> vRailstations,Vector<WaterWay> vWaterway){
+	public MainFrame(Vector<RailWay> vRailway,Vector<RailwayStation> vRailstations,Vector<WaterWay> vWaterway,Vector<StreetWay> vStreetway){
 		this.setTitle("Railways");
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE ); 
-		rwv=new RailwayView(vRailway,vRailstations,vWaterway);
+		rwv=new RailwayView(vRailway,vRailstations,vWaterway,vStreetway);
 		sp=new JScrollPane(rwv);
 		
 		this.setPreferredSize(new Dimension(640, 480));
